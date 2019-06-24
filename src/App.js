@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+
+import GlobalStyled from './styles/global';
+
+import Main from './pages/Main';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Github Compare</h1>
-    </div>
+    <Fragment>
+      <GlobalStyled />
+      <div className="App">
+        <Main />
+      </div>
+    </Fragment>
   );
 }
 
