@@ -9,7 +9,8 @@ import CompareList from '../../components/CompareList';
 
 export default class Main extends Component {
   state = {
-    repositorieInput: '',
+    repositoryError: false,
+    repositoryInput: '',
     repositories: [],
   };
 
@@ -17,16 +18,20 @@ export default class Main extends Component {
     e.preventDefault();
 
     try {
-      const { data: repository } = await api.get(`/repos/${this.state.repositorieInput}`);
+      const { data: repository } = await api.get(`/repos/${this.state.repositoryInput}`);
 
       repository.lastCommit = moment(repository.pushed_at).fromNow();
 
       this.setState({
-        repositorieInput: '',
+        repositoryInput: '',
         repositories: [...this.state.repositories, repository],
+        repositoryError: false,
       });
     } catch (err) {
-      console.log(err);
+      this.setState({
+        repositoryError: true,
+        repositoryInput: '',
+      });
     }
   };
 
@@ -35,12 +40,12 @@ export default class Main extends Component {
       <Container>
         <img src={logo} alt="Logo GitCompare" />
 
-        <Form onSubmit={this.handleAddRepository}>
+        <Form withError={this.state.repositoryError} onSubmit={this.handleAddRepository}>
           <input
             type="text"
             placeholder="usuário/repositório"
-            value={this.state.repositorieInput}
-            onChange={e => this.setState({ repositorieInput: e.target.value })}
+            value={this.state.repositoryInput}
+            onChange={e => this.setState({ repositoryInput: e.target.value })}
           />
           <button type="submit">OK</button>
         </Form>
