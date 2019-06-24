@@ -1,17 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import logo from '../assets/images/logo.png';
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
-`;
-
-const Logo = styled.h1`
-  color: #fff;
-  font-weight: bold;
-  font-size: 25px;
 `;
 
 const Form = styled.form`
@@ -51,7 +47,7 @@ const Form = styled.form`
 
 const Main = () => (
   <Container>
-    <Logo>GITCOMPARE</Logo>
+    <img src={logo} alt="Logo GitCompare" />
 
     <Form>
       <input type="text" placeholder="usuário/repositório" />
